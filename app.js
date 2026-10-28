@@ -2,15 +2,18 @@ require('reflect-metadata')
 require('dotenv').config()
 
 const express = require("express");
+const { IsNull, LessThan } = require('typeorm');
 const postgres = require('./app-data-source');
 const {todayString} = require("./date");
-const { IsNull, LessThan } = require('typeorm');
+const gearRoutes = require('./routes/Gear')
+
 const app = express();
 
 app.set('view engine', 'ejs')
 app.set('views', 'views')
 
 app.use(express.static("public"))
+app.use('/gear', gearRoutes)
 
 async function gearCount() {
     const gearRepo = postgres.getRepository('Gear');
