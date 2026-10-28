@@ -1,8 +1,8 @@
 require('reflect-metadata')
+require('dotenv').config()
 
 const express = require("express");
-const postgreSQL = require('./app-data-source');
-const { PostgresDriver } = require('typeorm/browser/platform/BrowserDisabledDriversDummy.js');
+const postgres = require('./app-data-source');
 const app = express();
 
 app.set('view engine', 'ejs')

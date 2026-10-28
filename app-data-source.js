@@ -9,6 +9,7 @@ const postgreSQL = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     synchronize: true,
+    ssl: { rejectUnauthorized: false },
     entities: [path.join(__dirname, 'entities', '*.entities.js')]
 })
 
