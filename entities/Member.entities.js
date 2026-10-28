@@ -11,7 +11,7 @@ const Member = new EntitySchema({
             primary: true,
             generated: 'increment'
         },
-        firsName: {
+        firstName: {
             name: 'first_name',
             type: 'varchar',
             length: 50

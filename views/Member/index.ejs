@@ -1,0 +1,48 @@
+<%- include('../partials/layout/top') %>
+<!-- Page Header Start -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 mb-0">Members</h1>
+    <p class="text-muted mb-0"><%= members.length %> people can borrow gear</p>
+  </div>
+</div>
+<!-- Page Header End -->
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white shadow-sm">
+        <thead class="table-light"><tr><th>Name</th><th>Email</th><th>Joined</th><th>Out now</th></tr></thead>
+        <tbody>
+          <% members.forEach(m => { %>
+            <tr>
+              <td><a href="/members/<%= m.id %>" class="fw-semibold"><%= m.getFullName() %></a></td>
+              <td><%= m.email %></td>
+              <td><%= m.joinedOn %></td>
+              <td>
+                <% if (m.outCount > 0) { %>
+                  <span class="badge bg-warning"><%= m.outCount %></span>
+                <% } else { %>
+                  <span class="badge bg-light text-dark">0</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <h2 class="h5">Add a member</h2>
+
+      <form method="POST" action="/members">
+        <input class="form-control mb-2" name="firstName" placeholder="First name" required>
+        <input class="form-control mb-2" name="lastName" placeholder="Last name" required>
+        <input class="form-control mb-3" name="email" type="email" placeholder="Email" required>
+        <button class="btn btn-primary w-100">Add member</button>
+      </form>
+    </div></div>
+  </div>
+</div>
+
+<%- include('../partials/layout/bottom') %>

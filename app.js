@@ -6,6 +6,7 @@ const { IsNull, LessThan } = require('typeorm');
 const postgres = require('./app-data-source');
 const {todayString} = require("./date");
 const gearRoutes = require('./routes/Gear')
+const memberRoutes = require('./routes/Member')
 
 const app = express();
 
@@ -13,7 +14,9 @@ app.set('view engine', 'ejs')
 app.set('views', 'views')
 
 app.use(express.static("public"))
+app.use(express.urlencoded({extended: true}));
 app.use('/gear', gearRoutes)
+app.use('/Members', memberRoutes)
 
 async function gearCount() {
     const gearRepo = postgres.getRepository('Gear');
