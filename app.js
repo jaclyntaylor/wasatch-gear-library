@@ -7,6 +7,7 @@ const postgres = require('./app-data-source');
 const {todayString} = require("./date");
 const gearRoutes = require('./routes/Gear')
 const memberRoutes = require('./routes/Member')
+const checkoutRoutes = require('./routes/Checkout')
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.static("public"))
 app.use(express.urlencoded({extended: true}));
 app.use('/gear', gearRoutes)
 app.use('/Members', memberRoutes)
+app.use('/Checkouts', checkoutRoutes)
 
 async function gearCount() {
     const gearRepo = postgres.getRepository('Gear');

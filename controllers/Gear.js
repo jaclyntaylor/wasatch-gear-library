@@ -1,6 +1,7 @@
 const postgres = require('../app-data-source');
 const { IsNull } = require('typeorm');
 const { todayString } = require('../date');
+const QRCode = require('qrcode');
 
 async function index(req, res) {
     const gearRepo = postgres.getRepository('Gear');
@@ -64,7 +65,15 @@ async function show(req, res) {
 
     const today = todayString()
 
-    res.render('Gear/show', {title: item.name, item, history, available, today})
+    
+    const host = req.get('x-forwarded-host') || req.get('host');
+    const protocol = req.get('x-forwarded-proto') || req.protocol;
+    const pageUrl = `${protocol}://${host}/gear/${item.id}`;
+
+
+    const qrCode = await QRCode.toDataURL(pageUrl);
+
+    res.render('Gear/show', {title: item.name, item, history, available, today, qrCode, pageUrl})
 }
 
 function newForm(req,res) {
